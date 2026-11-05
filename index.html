@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex Ground Crew — You Fly the Business, We Work the Ground</title>
+<meta name="description" content="Apex Ground Crew does the last-mile ground work for small businesses: a one-page website that says what you do, listings set up straight, simple forms and packets assembled from your words. Tell us about your business in plain words — we bring the work back finished.">
+<style>
+  :root { --ink:#1c2733; --accent:#0b6e4f; --paper:#f7f5f0; --card:#ffffff; --line:#d8d2c4; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: Georgia, 'Times New Roman', serif; background: var(--paper); color: var(--ink); line-height: 1.55; }
+  main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.25rem 3rem; }
+  h1 { font-size: 2.1rem; line-height: 1.2; margin: 0 0 .4rem; }
+  .tagline { font-size: 1.2rem; color: var(--accent); margin: 0 0 1.6rem; font-style: italic; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 .6rem; border-bottom: 2px solid var(--line); padding-bottom: .3rem; }
+  p, li { font-size: 1.05rem; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 1.2rem 1.4rem; margin: 1rem 0; }
+  .exchange { font-size: 1.25rem; font-weight: bold; text-align: center; padding: 1rem; background: #eef6f2; border: 1px solid var(--accent); border-radius: 10px; }
+  label { display: block; font-weight: bold; margin: 1rem 0 .3rem; }
+  input[type="text"], input[type="email"], textarea { width: 100%; padding: .6rem; font-size: 1rem; font-family: inherit; border: 1px solid #a89f8d; border-radius: 6px; background: #fff; }
+  textarea { min-height: 4.5rem; }
+  button { margin-top: 1.4rem; background: var(--accent); color: #fff; border: 0; border-radius: 8px; padding: .8rem 1.6rem; font-size: 1.05rem; font-family: inherit; cursor: pointer; }
+  button:hover { background: #095a41; }
+  .fine { font-size: .9rem; color: #5a6570; }
+  #form-status { margin-top: 1rem; font-weight: bold; }
+  footer { margin-top: 3rem; border-top: 2px solid var(--line); padding-top: 1rem; font-size: .95rem; color: #5a6570; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Apex Ground Crew</h1>
+  <p class="tagline">You fly the business, we work the ground.</p>
+
+  <div class="card">
+    <p>You run a small business. There is always a pile of ground work you never get to — the website page, the listing, the packet, the form that needs filing.</p>
+    <p>Ground Crew is that pile, handled. You tell us about your business in plain words. Our crew does the last-mile work and brings it back finished.</p>
+    <p>One business, one crew, one job at a time — done right, brought back, and yours.</p>
+  </div>
+
+  <p class="exchange">Tell me about your product — I'll tell you about your corporation.</p>
+
+  <h2>What we do</h2>
+  <ul>
+    <li>A one-page website that says what you do</li>
+    <li>Business listings set up straight</li>
+    <li>Simple forms and packets assembled from your words</li>
+    <li>Small jobs finished end-to-end and handed back</li>
+  </ul>
+
+  <h2>How it starts</h2>
+  <p>Fill in the form below. A real person-and-machine crew reads it, files your job, and comes back with the first step. No account. No jargon. Your words stay yours.</p>
+
+  <div class="card">
+    <!--
+      INTAKE WIRING (v0): this form posts to FormSubmit's AJAX endpoint for the
+      business mailbox (masteradminapex@apex-airsolutions.com). FormSubmit sends an
+      activation email to that mailbox on the first submission; the mailbox owner
+      clicks it once and every submission after that is delivered as a filed scope.
+      Each delivered submission is also opened as a scope in Mav's intake.
+      Backup path if the endpoint is unreachable: the form falls back to opening a
+      pre-addressed email in the visitor's own mail app.
+    -->
+    <form id="intake-form" action="https://formsubmit.co/masteradminapex@apex-airsolutions.com" method="POST">
+      <input type="hidden" name="_subject" value="Apex Ground Crew — new job scope filed">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="true">
+      <input type="text" name="_honey" style="display:none">
+
+      <label for="f-name">Your name</label>
+      <input type="text" id="f-name" name="Your name" required>
+
+      <label for="f-business">Your business name</label>
+      <input type="text" id="f-business" name="Business name" required>
+
+      <label for="f-what">What does your business do? (one or two sentences, your words)</label>
+      <textarea id="f-what" name="What the business does" required></textarea>
+
+      <label for="f-need">What do you need done first?</label>
+      <textarea id="f-need" name="First job needed" required></textarea>
+
+      <label for="f-reach">How do we reach you? (email or phone — your pick)</label>
+      <input type="text" id="f-reach" name="How to reach you" required>
+
+      <label for="f-extra">Anything else we should know? (optional)</label>
+      <textarea id="f-extra" name="Anything else"></textarea>
+
+      <button type="submit">File my job</button>
+      <p id="form-status" role="status"></p>
+      <p class="fine">One form, one crew. Your words stay yours — we work from what you wrote, nothing else.</p>
+    </form>
+  </div>
+
+  <footer>
+    <p>Apex Ground Crew — a service of Apex Air Solutions. One business, one crew, one job at a time.</p>
+  </footer>
+</main>
+
+<script>
+  (function () {
+    var form = document.getElementById('intake-form');
+    var status = document.getElementById('form-status');
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      status.textContent = 'Filing your job…';
+      var data = new FormData(form);
+      fetch('https://formsubmit.co/ajax/masteradminapex@apex-airsolutions.com', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(function (r) {
+        if (!r.ok) { throw new Error('filing failed'); }
+        return r.json();
+      }).then(function () {
+        status.textContent = 'Filed. Your job is in the crew\u2019s hands — we\u2019ll come back with the first step.';
+        form.reset();
+      }).catch(function () {
+        // Fallback: hand the scope to the visitor's own mail app, addressed to the business mailbox.
+        var lines = [];
+        data.forEach(function (value, key) {
+          if (key.charAt(0) !== '_' && value) { lines.push(key + ': ' + value); }
+        });
+        window.location.href = 'mailto:masteradminapex@apex-airsolutions.com'
+          + '?subject=' + encodeURIComponent('Apex Ground Crew — new job scope filed')
+          + '&body=' + encodeURIComponent(lines.join('\n'));
+        status.textContent = 'Opening your mail app to send your job to the crew…';
+      });
+    });
+  })();
+</script>
+</body>
+</html>
