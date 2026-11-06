@@ -6,51 +6,99 @@
 <title>Apex Ground Crew — You Fly the Business, We Work the Ground</title>
 <meta name="description" content="Apex Ground Crew does the last-mile ground work for small businesses: a one-page website that says what you do, listings set up straight, simple forms and packets assembled from your words. Tell us about your business in plain words — we bring the work back finished.">
 <style>
-  :root { --ink:#1c2733; --accent:#0b6e4f; --paper:#f7f5f0; --card:#ffffff; --line:#d8d2c4; }
+  @font-face {
+    font-family: 'Public Sans';
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url('fonts/public-sans-latin.woff2') format('woff2');
+  }
+  :root {
+    --backdrop-1:#08222d; --backdrop-2:#0e3442; --backdrop-3:#1b3a52;
+    --glass:rgba(255,255,255,.10); --glass-strong:rgba(255,255,255,.16);
+    --glass-border:rgba(255,255,255,.38); --glass-line:rgba(255,255,255,.25);
+    --ink-glass:#f4f8f7; --ink-glass-soft:#cfe8de;
+    --panel-solid:#eef4f2; --ink-dark:#16242e; --ink-dark-soft:#43525c;
+    --field-bg:#fbfdfc; --field-line:#7d8b93;
+    --accent:#ffb020; --accent-ink:#241a00;
+  }
   * { box-sizing: border-box; }
-  body { margin:0; font-family: Georgia, 'Times New Roman', serif; background: var(--paper); color: var(--ink); line-height: 1.55; }
-  main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.25rem 3rem; }
-  h1 { font-size: 2.1rem; line-height: 1.2; margin: 0 0 .4rem; }
-  .tagline { font-size: 1.2rem; color: var(--accent); margin: 0 0 1.6rem; font-style: italic; }
-  h2 { font-size: 1.3rem; margin: 2rem 0 .6rem; border-bottom: 2px solid var(--line); padding-bottom: .3rem; }
-  p, li { font-size: 1.05rem; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 1.2rem 1.4rem; margin: 1rem 0; }
-  .exchange { font-size: 1.25rem; font-weight: bold; text-align: center; padding: 1rem; background: #eef6f2; border: 1px solid var(--accent); border-radius: 10px; }
-  label { display: block; font-weight: bold; margin: 1rem 0 .3rem; }
-  input[type="text"], input[type="email"], textarea { width: 100%; padding: .6rem; font-size: 1rem; font-family: inherit; border: 1px solid #a89f8d; border-radius: 6px; background: #fff; }
-  textarea { min-height: 4.5rem; }
-  button { margin-top: 1.4rem; background: var(--accent); color: #fff; border: 0; border-radius: 8px; padding: .8rem 1.6rem; font-size: 1.05rem; font-family: inherit; cursor: pointer; }
-  button:hover { background: #095a41; }
-  .fine { font-size: .9rem; color: #5a6570; }
-  #form-status { margin-top: 1rem; font-weight: bold; }
-  footer { margin-top: 3rem; border-top: 2px solid var(--line); padding-top: 1rem; font-size: .95rem; color: #5a6570; }
+  body {
+    margin:0; font-family:'Public Sans', -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color:var(--ink-glass); line-height:1.55; min-height:100vh;
+    background:
+      radial-gradient(1100px 520px at 85% -80px, rgba(140,210,240,.12), rgba(140,210,240,0) 60%),
+      radial-gradient(900px 600px at -10% 30%, rgba(64,180,160,.14), rgba(64,180,160,0) 55%),
+      linear-gradient(165deg, var(--backdrop-1) 0%, var(--backdrop-2) 48%, var(--backdrop-3) 100%);
+    background-attachment: fixed;
+  }
+  main { max-width:760px; margin:0 auto; padding:2.5rem 1.25rem 3rem; }
+  .panel {
+    background:var(--glass); border:1px solid var(--glass-border); border-radius:16px;
+    padding:1.4rem 1.5rem; margin:1rem 0;
+    box-shadow:0 18px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.25);
+    -webkit-backdrop-filter:blur(14px) saturate(1.25); backdrop-filter:blur(14px) saturate(1.25);
+    animation:panel-in .7s ease both;
+  }
+  .panel--intro { background:var(--glass-strong); }
+  .panel--form { background:var(--panel-solid); color:var(--ink-dark); border-color:rgba(255,255,255,.65); animation-delay:.15s; }
+  .panel--do { animation-delay:.05s; }
+  .panel--start { animation-delay:.1s; }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .panel { background:#17384a; }
+    .panel--form { background:var(--panel-solid); }
+  }
+  @keyframes panel-in { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+  @media (prefers-reduced-motion: reduce) { .panel { animation:none; } }
+  h1 { font-size:2.1rem; line-height:1.2; margin:0 0 .4rem; font-weight:700; }
+  .tagline { font-size:1.2rem; color:var(--ink-glass-soft); margin:0 0 1.2rem; font-style:italic; }
+  h2 { font-size:1.3rem; margin:.2rem 0 .6rem; border-bottom:2px solid var(--glass-line); padding-bottom:.3rem; font-weight:700; }
+  .panel--form h2 { border-bottom-color:#c3d2cc; }
+  p, li { font-size:1.05rem; }
+  .exchange { font-size:1.25rem; font-weight:700; text-align:center; padding:1rem; margin:1.2rem 0 .2rem;
+    background:rgba(255,255,255,.08); border:1px solid var(--glass-border); border-radius:10px; }
+  .exhibit { text-align:center; margin:1.4rem 0 .4rem; font-size:1.1rem; }
+  .exhibit a { color:var(--accent); font-weight:700; text-underline-offset:3px; }
+  .exhibit a:hover, .exhibit a:focus { text-decoration-thickness:3px; }
+  label { display:block; font-weight:700; margin:1rem 0 .3rem; font-size:1.05rem; color:var(--ink-dark); }
+  input[type="text"], input[type="email"], textarea { width:100%; padding:.6rem; font-size:1rem; font-family:inherit;
+    border:1px solid var(--field-line); border-radius:6px; background:var(--field-bg); color:var(--ink-dark); }
+  textarea { min-height:4.5rem; }
+  button { margin-top:1.4rem; background:var(--accent); color:var(--accent-ink); border:0; border-radius:8px;
+    padding:.8rem 1.6rem; font-size:1.05rem; font-weight:700; font-family:inherit; cursor:pointer; min-height:52px; }
+  button:hover { background:var(--accent); filter:brightness(1.12); }
+  @media (max-width:560px) { button { width:100%; } }
+  .fine { font-size:.9rem; color:var(--ink-dark-soft); }
+  #form-status { margin-top:1rem; font-weight:700; color:var(--ink-dark); }
+  footer { margin-top:3rem; border-top:2px solid var(--glass-line); padding-top:1rem; font-size:.95rem; color:rgba(244,248,247,.78); }
 </style>
 </head>
 <body>
 <main>
-  <h1>Apex Ground Crew</h1>
-  <p class="tagline">You fly the business, we work the ground.</p>
-
-  <div class="card">
+  <section class="panel panel--intro">
+    <h1>Apex Ground Crew</h1>
+    <p class="tagline">You fly the business, we work the ground.</p>
     <p>You run a small business. There is always a pile of ground work you never get to — the website page, the listing, the packet, the form that needs filing.</p>
     <p>Ground Crew is that pile, handled. You tell us about your business in plain words. Our crew does the last-mile work and brings it back finished.</p>
     <p>One business, one crew, one job at a time — done right, brought back, and yours.</p>
-  </div>
+    <p class="exchange">Tell me about your product — I'll tell you about your corporation.</p>
+  </section>
 
-  <p class="exchange">Tell me about your product — I'll tell you about your corporation.</p>
+  <section class="panel panel--do">
+    <h2>What we do</h2>
+    <ul>
+      <li>A one-page website that says what you do</li>
+      <li>Business listings set up straight</li>
+      <li>Simple forms and packets assembled from your words</li>
+      <li>Small jobs finished end-to-end and handed back</li>
+    </ul>
+  </section>
 
-  <h2>What we do</h2>
-  <ul>
-    <li>A one-page website that says what you do</li>
-    <li>Business listings set up straight</li>
-    <li>Simple forms and packets assembled from your words</li>
-    <li>Small jobs finished end-to-end and handed back</li>
-  </ul>
+  <p class="exhibit"><a href="demo/sample-bakery-one-pager.html">See one we built →</a></p>
 
-  <h2>How it starts</h2>
-  <p>Fill in the form below. A real person-and-machine crew reads it, files your job, and comes back with the first step. No account. No jargon. Your words stay yours.</p>
-
-  <div class="card">
+  <section class="panel panel--form">
+    <h2>How it starts</h2>
+    <p>Fill in the form below. A real person-and-machine crew reads it, files your job, and comes back with the first step. No account. No jargon. Your words stay yours.</p>
     <!--
       INTAKE WIRING (v0): this form posts to FormSubmit's AJAX endpoint for the
       business mailbox (masteradminapex@apex-airsolutions.com). FormSubmit sends an
@@ -88,7 +136,7 @@
       <p id="form-status" role="status"></p>
       <p class="fine">One form, one crew. Your words stay yours — we work from what you wrote, nothing else.</p>
     </form>
-  </div>
+  </section>
 
   <footer>
     <p>Apex Ground Crew — a service of Apex Air Solutions. One business, one crew, one job at a time.</p>
