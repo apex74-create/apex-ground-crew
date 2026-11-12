@@ -13,92 +13,167 @@
     font-display: swap;
     src: url('fonts/public-sans-latin.woff2') format('woff2');
   }
+  /* APEX GROUND CREW — the House Look (shared with the Apex Auction House floor):
+     deep ink ground, ivory, auction gold; framed glass sheet with gold corner
+     detail; glass panels; money wears AMBER, never red. */
   :root {
-    --backdrop-1:#08222d; --backdrop-2:#0e3442; --backdrop-3:#1b3a52;
-    --glass:rgba(255,255,255,.10); --glass-strong:rgba(255,255,255,.16);
-    --glass-border:rgba(255,255,255,.38); --glass-line:rgba(255,255,255,.25);
-    --ink-glass:#f4f8f7; --ink-glass-soft:#cfe8de;
-    --panel-solid:#f1f4f6; --ink-dark:#16242e; --ink-dark-soft:#43525c;
-    --field-bg:#fbfdfc; --field-line:#7d8b93;
-    --accent:#6ea8d8; --accent-ink:#0a141d;
+    --ink:#0b0e13; --ink2:#12161f;
+    --ivory:#f4efe4; --ivory-dim:#cfc8b8;
+    --gold:#c9a227; --gold-bright:#e8c766;
+    --amber:#f2a33c; --amber-soft:#ffd9a0;
+    --glass:rgba(20,26,38,.72); --glass-light:rgba(38,46,64,.55);
+    --glass-form:rgba(244,239,228,.07);
+    --line:rgba(201,162,39,.45); --line-soft:rgba(201,162,39,.28);
+    --field-bg:rgba(11,14,19,.66); --field-line:rgba(201,162,39,.42);
+    --radius:14px;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior:smooth; }
   body {
-    margin:0; font-family:'Inter','Public Sans', -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    color:var(--ink-glass); line-height:1.55; min-height:100vh;
-    background:
-      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
-      linear-gradient(165deg, #0d1a24 0%, #10222f 55%, #0c1821 100%);
-    background-size:56px 56px, 56px 56px, cover;
-    background-attachment: fixed;
+    margin:0; font-family:Georgia,'Times New Roman',serif;
+    color:var(--ivory); line-height:1.55; min-height:100vh;
+    background:var(--ink);
+    -webkit-text-size-adjust:100%;
   }
-  main { max-width:760px; margin:0 auto; padding:2.5rem 1.25rem 3rem; }
-  #topbar { display:flex; align-items:center; justify-content:center; gap:.8rem;
-    padding:.85rem 1rem .8rem; border-bottom:1px solid var(--glass-line); }
-  #topbar .tb-name { font-weight:700; letter-spacing:.24em; font-size:1rem;
-    color:var(--ink-glass); text-transform:uppercase; white-space:nowrap; }
+  a { color:var(--gold-bright); }
 
+  /* ---------- hero ground ---------- */
+  .hero-ground{
+    position:fixed;inset:0;z-index:-2;
+    background:
+      radial-gradient(1100px 500px at 85% -10%, rgba(201,162,39,.22), transparent 60%),
+      radial-gradient(900px 600px at -10% 30%, rgba(64,84,140,.35), transparent 60%),
+      radial-gradient(700px 500px at 50% 115%, rgba(201,162,39,.12), transparent 60%),
+      linear-gradient(160deg,#0b0e13 0%,#131826 48%,#0b0e13 100%);
+  }
+  .hero-ground::after{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(244,239,228,.055) 1px, transparent 1px);
+    background-size:26px 26px;
+  }
+
+  /* ---------- top strip ---------- */
+  #topbar { position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:center; gap:.8rem;
+    padding:.55rem 1rem;
+    background:rgba(9,11,16,.92); border-bottom:1px solid var(--line);
+    -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+  #topbar .tb-name { font-family:Verdana,Geneva,sans-serif; font-weight:700;
+    letter-spacing:.30em; font-size:.82rem; color:var(--ivory); text-transform:uppercase; white-space:nowrap; }
+
+  /* seal recoloured to the house livery by CSS only — markup untouched */
+  svg [fill="#e8f1f8"] { fill:var(--ivory); }
+  svg [fill="#6ea8d8"] { fill:var(--gold); }
+  svg [fill="#9fc2e2"] { fill:var(--gold-bright); }
+  svg [stroke="#cfe0ee"] { stroke:rgba(232,199,102,.85); }
+
+  main { max-width:880px; margin:0 auto; padding:1.2rem 1rem 3.6rem; }
+
+  /* ---------- framed glass sheet ---------- */
+  .frame{
+    position:relative;
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:2rem 1.6rem 2.4rem;
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    box-shadow:0 30px 80px rgba(0,0,0,.55);
+  }
+  .frame::before,.frame::after{
+    content:"";position:absolute;width:34px;height:34px;pointer-events:none;
+  }
+  .frame::before{top:8px;left:8px;border-top:2px solid var(--gold);border-left:2px solid var(--gold)}
+  .frame::after{bottom:8px;right:8px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold)}
+
+  /* ---------- panels ---------- */
   .panel {
-    background:var(--glass); border:1px solid var(--glass-border); border-radius:10px;
-    padding:1.4rem 1.5rem; margin:1rem 0;
-    box-shadow:0 10px 26px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.18);
-    -webkit-backdrop-filter:blur(14px) saturate(1.25); backdrop-filter:blur(14px) saturate(1.25);
+    background:var(--glass-light); border:1px solid var(--line-soft); border-radius:var(--radius);
+    padding:1.4rem 1.5rem 1.5rem; margin:1.4rem 0 0;
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
     animation:panel-in .7s ease both;
   }
-  .panel--intro { background:var(--glass-strong); }
-  .panel--form { background:var(--panel-solid); color:var(--ink-dark); border-color:rgba(255,255,255,.65); animation-delay:.15s; }
+  .panel:first-child { margin-top:.4rem; }
+  .panel--intro { background:rgba(38,46,64,.68); }
+  .panel--form { background:var(--glass-form); animation-delay:.15s; }
   .panel--do { animation-delay:.05s; }
   .panel--start { animation-delay:.1s; }
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .panel { background:#17384a; }
-    .panel--form { background:var(--panel-solid); }
+    .panel { background:#1a2231; }
+    .panel--form { background:#232c3d; }
+    .frame { background:#12161f; }
   }
   @keyframes panel-in { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
   @media (prefers-reduced-motion: reduce) { .panel { animation:none; } }
-  h1 { font-size:2.1rem; line-height:1.2; margin:0 0 .4rem; font-weight:700; }
-  .brandline{text-align:center; border-top:3px double var(--glass-line); border-bottom:3px double var(--glass-line);
+
+  h1 { font-size:2.1rem; line-height:1.15; margin:0 0 .4rem; font-weight:700; letter-spacing:.01em; }
+  .brandline{text-align:center; border-top:3px double var(--line); border-bottom:3px double var(--line);
     padding:.9rem 0 .8rem; margin-bottom:1.2rem;}
-  .brandline .bl-word{display:block; font-family:Georgia,'Times New Roman',serif; font-size:1.9rem;
-    letter-spacing:.14em; font-weight:700; color:var(--ink-glass); text-transform:uppercase;}
+  .brandline .bl-word{display:block; font-size:1.9rem;
+    letter-spacing:.14em; font-weight:700; color:var(--ivory); text-transform:uppercase;}
   .seal { display:block; margin:0 auto .55rem; }
-  .brandline .bl-reg{display:block; margin-top:.35rem; font-size:.74rem; letter-spacing:.26em;
-    font-weight:700; text-transform:uppercase; color:var(--ink-glass-soft);}
-  .descriptor{font-size:1.02rem; color:var(--ink-glass); margin:0 0 1rem; line-height:1.5;}
+  .brandline .bl-reg{display:block; margin-top:.35rem; font-family:Verdana,Geneva,sans-serif;
+    font-size:.72rem; letter-spacing:.30em; font-weight:700; text-transform:uppercase; color:var(--gold-bright);}
+  .descriptor{font-size:1.02rem; color:var(--ivory); margin:0 0 1rem; line-height:1.5;}
   .descriptor strong{font-weight:700;}
-  .tagline { font-size:1.2rem; color:var(--ink-glass-soft); margin:0 0 1.2rem; font-style:italic; }
-  h2 { font-size:1.3rem; margin:.2rem 0 .6rem; border-bottom:2px solid var(--glass-line); padding-bottom:.3rem; font-weight:700; }
-  .panel--form h2 { border-bottom-color:#c3d2cc; }
+  .tagline { font-size:1.2rem; color:var(--ivory-dim); margin:0 0 1.2rem; font-style:italic; }
+  h2 { font-size:1.35rem; margin:.2rem 0 .6rem; border-bottom:1px solid var(--line); padding-bottom:.35rem; font-weight:700; }
   p, li { font-size:1.05rem; }
+  .panel p { color:var(--ivory-dim); }
+  .panel p b, .panel li b { color:var(--ivory); }
+  .descriptor, .tagline, .exchange { color:inherit; }
+  .panel--intro p { color:var(--ivory-dim); }
+  .panel--intro .descriptor { color:var(--ivory); }
   .exchange { font-size:1.25rem; font-weight:700; text-align:center; padding:1rem; margin:1.2rem 0 .2rem;
-    background:rgba(255,255,255,.08); border:1px solid var(--glass-border); border-radius:10px; }
+    color:var(--ivory);
+    background:rgba(13,17,25,.66); border:1px solid var(--line-soft); border-radius:12px; }
   .services { list-style:none; margin:.4rem 0 0; padding:0; }
-  .services li { padding:.55rem 0 .55rem 1.1rem; position:relative; border-bottom:1px solid var(--glass-line); font-size:1.02rem; }
+  .services li { padding:.55rem 0 .55rem 1.1rem; position:relative; border-bottom:1px solid var(--line-soft); font-size:1.02rem; color:var(--ivory-dim); }
   .services li:last-child { border-bottom:0; }
-  .services li::before { content:""; position:absolute; left:0; top:1.05rem; width:.42rem; height:.42rem; background:var(--accent); }
-  .services .svc { font-weight:700; }
-  .svcgroup { font-size:.82rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-glass-soft); margin:1.1rem 0 .1rem; font-weight:700; }
-  .deliver { margin:.4rem 0 0; padding-left:1.3rem; }
+  .services li::before { content:""; position:absolute; left:0; top:1.05rem; width:.42rem; height:.42rem; background:var(--gold); }
+  .services .svc { font-weight:700; color:var(--ivory); }
+  .svcgroup { font-family:Verdana,Geneva,sans-serif; font-size:.72rem; letter-spacing:.30em; text-transform:uppercase; color:var(--gold-bright); margin:1.1rem 0 .1rem; font-weight:700; }
+  .deliver { margin:.4rem 0 0; padding-left:1.3rem; color:var(--ivory-dim); }
   .deliver li { padding:.3rem 0; font-size:1.02rem; }
   .exhibit { text-align:center; margin:1.4rem 0 .4rem; font-size:1.1rem; }
-  .exhibit a { color:var(--accent); font-weight:700; text-underline-offset:3px; }
+  .exhibit a { color:var(--gold-bright); font-weight:700; text-underline-offset:3px; }
   .exhibit a:hover, .exhibit a:focus { text-decoration-thickness:3px; }
-  label { display:block; font-weight:700; margin:1rem 0 .3rem; font-size:1.05rem; color:var(--ink-dark); }
+
+  /* ---------- the form (clothing only — markup, fields and script are the proven pipe) ---------- */
+  label { display:block; font-weight:700; margin:1rem 0 .3rem; font-size:1.05rem; color:var(--ivory); }
   input[type="text"], input[type="email"], textarea { width:100%; padding:.6rem; font-size:1rem; font-family:inherit;
-    border:1px solid var(--field-line); border-radius:6px; background:var(--field-bg); color:var(--ink-dark); }
+    border:1px solid var(--field-line); border-radius:8px; background:var(--field-bg); color:var(--ivory); }
+  input[type="text"]:focus, input[type="email"]:focus, textarea:focus { outline:2px solid var(--gold); outline-offset:1px; }
   textarea { min-height:4.5rem; }
-  button { margin-top:1.4rem; background:var(--accent); color:var(--accent-ink); border:0; border-radius:8px;
-    padding:.8rem 1.6rem; font-size:1.05rem; font-weight:700; font-family:inherit; cursor:pointer; min-height:52px; }
-  button:hover { background:var(--accent); filter:brightness(1.12); }
+  button { margin-top:1.4rem;
+    background:linear-gradient(180deg,var(--gold-bright),var(--gold)); color:#181205;
+    border:1px solid rgba(0,0,0,.35); border-radius:999px;
+    padding:.8rem 1.7rem; font-size:1.02rem; font-weight:700; font-family:Verdana,Geneva,sans-serif;
+    letter-spacing:.03em; cursor:pointer; min-height:52px;
+    box-shadow:0 8px 22px rgba(201,162,39,.35); }
+  button:hover { filter:brightness(1.07); }
   @media (max-width:560px) { button { width:100%; } }
-  .fine { font-size:.9rem; color:var(--ink-dark-soft); }
-  #form-status { margin-top:1rem; font-weight:700; color:var(--ink-dark); }
-  footer { margin-top:3rem; border-top:2px solid var(--glass-line); padding-top:1rem; font-size:.95rem; color:rgba(244,248,247,.78); }
+  .fine { font-size:.9rem; color:var(--ivory-dim); }
+  #form-status { margin-top:1rem; font-weight:700; color:var(--amber-soft); }
+
+  footer { margin-top:2rem; border-top:1px solid var(--line); padding-top:1.2rem; font-size:.95rem; color:var(--ivory-dim); }
+  footer .kinship { margin-top:.6rem; }
+  footer .kinship a { color:var(--gold-bright); font-weight:700; }
+
+  /* bottom no-fly zone: the frame carries deep bottom padding and the
+     footer is text only — no actionable control sits in the nav band. */
+  @media (max-width:640px){
+    .frame{padding:1.3rem .95rem 2rem}
+    .panel{padding:1.1rem 1rem 1.2rem}
+    main{padding:.8rem .6rem 3.4rem}
+    #topbar .tb-name{letter-spacing:.18em}
+  }
 </style>
 </head>
 <body>
+<div class="hero-ground"></div>
 <div id="topbar"><svg width="34" height="34" viewBox="0 0 72 72" role="img" aria-label="Apex Ground Crew seal"><circle cx="36" cy="36" r="33" fill="none" stroke="#cfe0ee" stroke-width="2.4"/><circle cx="36" cy="36" r="27.5" fill="none" stroke="#cfe0ee" stroke-width="1.2" opacity=".65"/><path d="M36 18 L53 48 L45.5 48 L36 29.5 L26.5 48 L19 48 Z" fill="#e8f1f8"/><rect x="24" y="51" width="24" height="2.6" fill="#6ea8d8"/><path d="M20 58 L28 58 L24.5 62 Z M33 58 L39 58 L36 62.5 Z M44 58 L52 58 L48.5 62 Z" fill="#9fc2e2"/></svg><span class="tb-name">Apex Ground Crew</span></div>
 <main>
+<div class="frame">
   <section class="panel panel--intro">
     <div class="brandline"><svg class="seal" width="72" height="72" viewBox="0 0 72 72" role="img" aria-label="Apex Ground Crew seal"><circle cx="36" cy="36" r="33" fill="none" stroke="#cfe0ee" stroke-width="1.6"/><circle cx="36" cy="36" r="27.5" fill="none" stroke="#cfe0ee" stroke-width=".8" opacity=".65"/><path d="M36 18 L53 48 L45.5 48 L36 29.5 L26.5 48 L19 48 Z" fill="#e8f1f8"/><rect x="24" y="51" width="24" height="2.6" fill="#6ea8d8"/><path d="M20 58 L28 58 L24.5 62 Z M33 58 L39 58 L36 62.5 Z M44 58 L52 58 L48.5 62 Z" fill="#9fc2e2"/></svg><span class="bl-word">Apex Ground Crew</span><span class="bl-reg">Est. 2026 &middot; Johannesburg, Michigan</span></div>
       <p class="descriptor"><strong>The spot that builds your business.</strong> Websites, listings, and the build-out &mdash; done for you, handed back finished.</p>
@@ -189,7 +264,9 @@
 
   <footer>
     <p>Apex Ground Crew — a service of Apex Air Solutions. One business, one crew, one job at a time.</p>
-  <br>Built by Apex Ground Crew</footer>
+  <br>Built by Apex Ground Crew
+    <p class="kinship">The crew&rsquo;s pre-built stock sells at the <a href="https://apex74-create.github.io/apex-auction-house/">Apex Auction House</a> — Ground Crew builds, the House sells.</p></footer>
+</div>
 </main>
 
 <script>
