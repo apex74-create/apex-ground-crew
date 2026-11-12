@@ -207,7 +207,12 @@
       }).then(function (r) {
         if (!r.ok) { throw new Error('filing failed'); }
         return r.json();
-      }).then(function () {
+      }).then(function (res) {
+        // FormSubmit answers HTTP 200 even when it refuses a filing
+        // (e.g. success:"false" before activation). Only its own
+        // success flag counts as filed; anything else falls back
+        // to the mail app below instead of claiming success.
+        if (!res || res.success !== 'true') { throw new Error('filing failed'); }
         status.textContent = 'Filed. Your job is in the crew\u2019s hands — we\u2019ll come back with the first step.';
         form.reset();
       }).catch(function () {
