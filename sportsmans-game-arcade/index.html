@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="data:," />
+    <title>The Sportsman's Game Arcade — Apex Ground Crew</title>
+    <style>
+      :root {
+        --paper: #f7f2e7;
+        --paper-deep: #efe7d5;
+        --card: #fffdf7;
+        --ink: #1e241d;
+        --ink-soft: #454c42;
+        --green: #1d4d2b;
+        --green-deep: #14331d;
+        --green-ink: #f2f6ee;
+        --line: #d8cdb2;
+        --amber-bg: #f3e2b3;
+        --amber-ink: #6d4c00;
+        --grey-bg: #e3e0d6;
+        --grey-ink: #4c4a42;
+        --done-bg: #d7e8d2;
+        --done-ink: #1d4d2b;
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+        font-size: 17px;
+        line-height: 1.55;
+      }
+      .wrap {
+        max-width: 44rem;
+        margin: 0 auto;
+        padding: 1.25rem 1rem 2.5rem;
+      }
+
+      /* ---------- Header ---------- */
+      .brand {
+        border-bottom: 3px solid var(--green);
+        padding-bottom: 0.9rem;
+        margin-bottom: 1.4rem;
+      }
+      .brand-name {
+        font-size: 1.55rem;
+        font-weight: bold;
+        letter-spacing: 0.01em;
+        color: var(--green-deep);
+        margin: 0;
+      }
+      .brand-sub {
+        margin: 0.3rem 0 0;
+        font-size: 0.92rem;
+        color: var(--ink-soft);
+      }
+
+      h1 {
+        font-size: 2.05rem;
+        line-height: 1.15;
+        margin: 0 0 0.7rem;
+        color: var(--ink);
+      }
+      .intro {
+        font-size: 1.06rem;
+        margin: 0 0 1.5rem;
+      }
+
+      /* ---------- Anchor nav ---------- */
+      .toc {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        margin: 0 0 2rem;
+      }
+      .toc a {
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        color: var(--green-deep);
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 0.4rem 0.8rem;
+        text-decoration: none;
+      }
+      .toc a:active, .toc a:hover { background: var(--paper-deep); }
+
+      /* ---------- Price block ---------- */
+      .price-card {
+        background: var(--green-deep);
+        color: var(--green-ink);
+        border-radius: 10px;
+        padding: 1.4rem 1.25rem;
+        margin-bottom: 2rem;
+      }
+      .price-figure {
+        font-size: 1.9rem;
+        font-weight: bold;
+        line-height: 1.2;
+        margin: 0 0 0.5rem;
+      }
+      .price-card p { margin: 0; font-size: 1rem; }
+      .price-card a { color: var(--green-ink); }
+
+      /* ---------- Sections ---------- */
+      section { margin-bottom: 2.1rem; }
+      h2 {
+        font-size: 1.35rem;
+        line-height: 1.25;
+        margin: 0 0 0.85rem;
+        color: var(--green-deep);
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 0.4rem;
+      }
+      h3 {
+        font-size: 1.08rem;
+        margin: 1.2rem 0 0.5rem;
+        color: var(--green-deep);
+      }
+      p { margin: 0 0 0.9rem; }
+      p:last-child { margin-bottom: 0; }
+      .item-title { font-weight: bold; color: var(--green-deep); }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 1.1rem 1.1rem 0.35rem;
+        margin-bottom: 1rem;
+      }
+
+      /* ---------- Door list ---------- */
+      .doors-note { margin-bottom: 1rem; }
+      ul.doors {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      ul.doors li {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        margin-bottom: 0.6rem;
+      }
+      ul.doors a {
+        display: block;
+        padding: 0.85rem 1rem;
+        min-height: 3rem;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      ul.doors a:active, ul.doors a:hover { background: var(--paper-deep); border-radius: 10px; }
+      .door-name {
+        display: block;
+        font-weight: bold;
+        color: var(--green);
+        font-size: 1.05rem;
+      }
+      .door-cap {
+        display: block;
+        font-size: 0.92rem;
+        color: var(--ink-soft);
+        margin-top: 0.15rem;
+      }
+      .door-arrow {
+        float: right;
+        color: var(--green);
+        font-weight: bold;
+      }
+
+      /* ---------- Tags ---------- */
+      .tag {
+        display: inline-block;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        padding: 0.18rem 0.55rem;
+        border-radius: 999px;
+        white-space: nowrap;
+        vertical-align: middle;
+      }
+      .tag-done { background: var(--done-bg); color: var(--done-ink); }
+      .tag-working { background: var(--amber-bg); color: var(--amber-ink); }
+      .tag-staged { background: var(--grey-bg); color: var(--grey-ink); }
+
+      /* ---------- Stat boxes ---------- */
+      .stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin: 1rem 0;
+      }
+      .stat {
+        flex: 1 1 8.5rem;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 0.9rem 0.8rem;
+        text-align: center;
+      }
+      .stat-num {
+        display: block;
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--green);
+        line-height: 1.1;
+      }
+      .stat-label { display: block; font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.2rem; }
+
+      /* ---------- Intake form ---------- */
+      form.intake {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 1.1rem;
+        margin-bottom: 1rem;
+      }
+      .field { margin-bottom: 0.95rem; }
+      .field label {
+        display: block;
+        font-weight: bold;
+        color: var(--green-deep);
+        font-size: 0.95rem;
+        margin-bottom: 0.3rem;
+      }
+      .field .hint {
+        display: block;
+        font-weight: normal;
+        font-size: 0.85rem;
+        color: var(--ink-soft);
+      }
+      .field input, .field select, .field textarea {
+        width: 100%;
+        font: inherit;
+        font-size: 1rem;
+        color: var(--ink);
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 0.6rem 0.7rem;
+      }
+      .field-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+      .field-row .field { flex: 1 1 9rem; }
+      button.file-btn {
+        font: inherit;
+        font-weight: bold;
+        background: var(--green);
+        color: var(--green-ink);
+        border: none;
+        border-radius: 8px;
+        padding: 0.8rem 1.4rem;
+        min-height: 3rem;
+        cursor: pointer;
+        width: 100%;
+      }
+      button.file-btn:active, button.file-btn:hover { background: var(--green-deep); }
+      .form-state {
+        margin-top: 0.8rem;
+        font-size: 0.95rem;
+        color: var(--ink-soft);
+      }
+
+      footer {
+        border-top: 3px solid var(--green);
+        padding-top: 0.9rem;
+        font-size: 0.9rem;
+        color: var(--ink-soft);
+      }
+      footer a { color: var(--green); }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+
+      <header class="brand">
+        <p class="brand-name">Apex Ground Crew</p>
+        <p class="brand-sub">Websites, listings and business paperwork, done for you · Est. 2026 · Johannesburg, Michigan</p>
+      </header>
+
+      <main>
+        <h1>The Sportsman's Game Arcade</h1>
+        <p class="intro">This is the store that sells the fishing line — and the room the community plays in. One site: the games on the shelf, the board on the wall, a YouTube-first community stance, and a tournament intake that takes the community's own competitions as they happen. Seat one is already taken — <a href="https://apexgroundcrew.com/sportsman-job/">the Sportsman Assembly</a>. This arcade is the template the next operators buy.</p>
+
+        <nav class="toc" aria-label="On this page">
+          <a href="#line">The line</a>
+          <a href="#board">The board &amp; the Triangle</a>
+          <a href="#the-24">The 24</a>
+          <a href="#community">The community stance</a>
+          <a href="#intake">Tournament intake</a>
+          <a href="#operator">Run one yourself</a>
+        </nav>
+
+        <section id="line">
+          <h2>The line — ten waters, one engine</h2>
+          <p>Ten fishing watch games off one engine, each water paired with its classic lure. Cast from the wrist, soak, work the lure with taps; the fish strikes and leaps trying to spit the hook while your finger holds tension on the line. Land it and the catch mounts on the trophy wall as a clock — new size, new colors, every catch: young, prime, old growth, or a dinosaur. In the operator's store the faces ride the house's round-dollar shelf — $10 a face — and the whole line lands inside the operator package below.</p>
+          <p class="doors-note">Every door below is the real build, verified live Nov 22, 2026, byte-for-byte the file built and tested. These are Android packages — your phone will ask to allow the install. Start with the dashboard: all ten waters, the board, and the mounts, one tap each.</p>
+          <ul class="doors">
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-dashboard.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Apex Fishing Dashboard</span>
+                <span class="door-cap">Start here — all ten waters, the board, and the mounts</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-largemouth-bass.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Largemouth Bass</span>
+                <span class="door-cap">Rapala long-body, three treble hooks</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-michigan-steelhead.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Michigan Steelhead</span>
+                <span class="door-cap">Bear Monday Mauler — with the run timeline and the DNR license portal on the face</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-rainbow-trout.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Rainbow Trout</span>
+                <span class="door-cap">Mepps Aglia spinner</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-walleye.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Walleye</span>
+                <span class="door-cap">Shad Rap style</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-northern-pike.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Northern Pike</span>
+                <span class="door-cap">Red-and-white spoon</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-muskie.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Muskie</span>
+                <span class="door-cap">Big bucktail</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-chinook-salmon.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Chinook Salmon</span>
+                <span class="door-cap">Kwikfish plug</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-bluegill.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Bluegill</span>
+                <span class="door-cap">Beetle spin</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-smallmouth-bass.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Smallmouth Bass</span>
+                <span class="door-cap">Tube</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-blue-marlin.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Blue Marlin</span>
+                <span class="door-cap">Classic squid lure</span>
+              </a>
+            </li>
+          </ul>
+          <p>A demo film of the game working — the fight, the mount, the Triangle — ships with the package. And the line travels: the same engine swaps one word and becomes the next sport. Rifleman sports and archery sports are named lines of their own, then bird, then cloven-hoof game, then automobiles. That is the road — stated as the road, not as goods in hand today.</p>
+        </section>
+
+        <section id="board">
+          <h2>The board &amp; the Triangle</h2>
+          <div class="card">
+            <p><span class="item-title">The board is free.</span> Anybody who lands a fish posts to the leaderboard — species records, placings against dated house records, days-unbroken counters that reset in public when a record falls, and the monster board for the dinosaurs. No charge, ever: the board is the spine of the arcade, and it stays open so the water stays full. Catches post to the board from every face automatically.</p>
+          </div>
+          <div class="card">
+            <p><span class="item-title">The Triangle is the pinnacle.</span> Place three fish of one species on the board — first, second, third, any mix — and you unlock the Arrangement Mount: your three fish as talking heads on your wrist and your dashboard, telling the time and the date. It is the top trophy in the house, it is earned on the water, and it cannot be bought. Money speeds nothing at the top.</p>
+          </div>
+          <p><span class="tag tag-done">WORKING TODAY</span> The board runs inside the dashboard, on the wrist. <span class="tag tag-staged">STAGED</span> The shared community board — one board the whole community watches on its own page — is the service layer's next build, on the same clock as the storefront. Nothing above claims it early.</p>
+        </section>
+
+        <section id="the-24">
+          <h2>The accompaniment — the ascribed 24</h2>
+          <p>The arcade does not travel alone. Twenty-four applications, picked by category, ride with it in the operator's own store — communication, sports, gaming, fishing, and the working tools a community business runs on. Twenty of the twenty-four stand behind live doors on this page today; the buyer's last category picks are drawn from the full catalogue and loaded when his storefront stands up. The whole package shelf also stands on <a href="https://apexgroundcrew.com/sportsman-job/shelf/">the applications shelf</a>.</p>
+
+          <h3>Communication — talk first</h3>
+          <ul class="doors">
+            <li>
+              <a href="https://github.com/apex74-create/apex-cb-free/releases/download/v1.0.0/sovereign-cb-1.0.0.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Encrypted CB — Sovereign CB 1.0.0</span>
+                <span class="door-cap">The community's own channel, encrypted end to end</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apex-cb-free/main/downloads/ptt-burst-v2.1-phone.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">PTT Burst v2.1 (phone)</span>
+                <span class="door-cap">Push-to-talk bursts from the phone</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apex-universal/main/downloads/apex-wrist-communicator.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Wrist Communicator</span>
+                <span class="door-cap">The channel on the wrist</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apex-universal/main/downloads/apex-watch-companion.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Apex Watch Companion</span>
+                <span class="door-cap">The phone's partner on the watch</span>
+              </a>
+            </li>
+          </ul>
+
+          <h3>Tools — the working shelf</h3>
+          <ul class="doors">
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apex-cb-free/main/downloads/apex-shield-bo4.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Apex Signal Shield BO-4</span>
+                <span class="door-cap">Signal protection for the station</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-wifi-analyzer-1.0.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">WiFi Analyzer 1.0</span>
+                <span class="door-cap">See the airwaves around the shop</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apex-universal/main/downloads/apex-enphase-weather.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Enphase Weather</span>
+                <span class="door-cap">The house prediction engine's weather</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-widget-window.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Apex Widget Window</span>
+                <span class="door-cap">The station's window on the home screen</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-launcher-1.0.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Apex Launcher 1.0</span>
+                <span class="door-cap">The home screen the whole stack lives behind</span>
+              </a>
+            </li>
+          </ul>
+
+          <h3>The whole shelf — where the rest of the 24 come from</h3>
+          <ul class="doors">
+            <li>
+              <a href="https://tinyradr.com">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Tiny Radar — the full catalogue</span>
+                <span class="door-cap">All 56 faces, each behind its own door — the stock the category picks are drawn from</span>
+              </a>
+            </li>
+          </ul>
+          <p>Half the stock stays off the ads, reserved for the drops — fresh applications land on a regular cadence, so the operator's store never runs dry and the community always has a next thing coming.</p>
+        </section>
+
+        <section id="community">
+          <h2>The community stance — YouTube first</h2>
+          <p>The arcade is pre-built for a community that watches together. The stance is YouTube-first, because that is where the community already sits: the channel is the arcade's front porch, and the slots below are cut into the package from the start — not bolted on later.</p>
+          <div class="card">
+            <p><span class="item-title">Tournament broadcasts.</span> The rounds, called live — the community's own fishing competitions, fished virtually: every player at his own desk, on his own monitor, on the same clock, with the board keeping score in the open.</p>
+          </div>
+          <div class="card">
+            <p><span class="item-title">The daily drop.</span> A short film in the Shot-of-the-Day pattern — one catch, one story, every day the water is open. The community sees its own fish on the screen, not stock footage of somebody else's lake.</p>
+          </div>
+          <div class="card">
+            <p><span class="item-title">Community catches.</span> The community films itself — the fight, the landing, the mount on the wall. Somebody will film it straight, somebody will film it in a bass costume, somebody will LARP the whole tournament. The arcade does not care what it becomes: the journalism intake below takes the evidence, and the record keeps it straight.</p>
+          </div>
+          <p>Seat one was taken by a sportsman whose whole scope, in his own words, was <em>"this is what my community wants"</em> — a personal, local interest in his own people. That is the customer this stance is built for: the operator runs his community; the arcade gives the community somewhere to stand.</p>
+        </section>
+
+        <section id="intake">
+          <h2>Tournament journalism intake</h2>
+          <p>Fishing a community round? File the catch here — this is the journalism desk for the virtual competitions. Every filed catch carries the entrant, the species, the fish's numbers, the evidence, and the time it was caught, and lands on the house desk to be checked against the board. A record broken inside a tournament still posts to the board, with its days-unbroken counter reset in public: the board never lies for a round.</p>
+
+          <form class="intake" id="intake-form" novalidate>
+            <div class="field-row">
+              <div class="field">
+                <label for="f-entrant">Entrant <span class="hint">Your name or your fishing handle</span></label>
+                <input id="f-entrant" name="Entrant" type="text" autocomplete="name" required />
+              </div>
+              <div class="field">
+                <label for="f-contact">Contact email <span class="hint">So the desk can confirm the filing</span></label>
+                <input id="f-contact" name="Contact email" type="email" autocomplete="email" required />
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="f-community">Community / arcade <span class="hint">Whose water you fished</span></label>
+                <input id="f-community" name="Community" type="text" />
+              </div>
+              <div class="field">
+                <label for="f-round">Round <span class="hint">The tournament round, if this files into one</span></label>
+                <input id="f-round" name="Round" type="text" />
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="f-species">Species</label>
+                <select id="f-species" name="Species" required>
+                  <option value="">Pick the fish…</option>
+                  <option>Largemouth Bass</option>
+                  <option>Michigan Steelhead</option>
+                  <option>Rainbow Trout</option>
+                  <option>Walleye</option>
+                  <option>Northern Pike</option>
+                  <option>Muskie</option>
+                  <option>Chinook Salmon</option>
+                  <option>Bluegill</option>
+                  <option>Smallmouth Bass</option>
+                  <option>Blue Marlin</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f-age">Age class <span class="hint">As the face rolled it</span></label>
+                <select id="f-age" name="Age class">
+                  <option value="">Pick the class…</option>
+                  <option>Young</option>
+                  <option>Prime</option>
+                  <option>Old growth</option>
+                  <option>Dinosaur</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="f-length">Length <span class="hint">Inches, as the face measured it</span></label>
+                <input id="f-length" name="Length (in)" type="text" inputmode="decimal" />
+              </div>
+              <div class="field">
+                <label for="f-weight">Weight <span class="hint">Pounds and ounces, as rolled</span></label>
+                <input id="f-weight" name="Weight" type="text" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="f-when">When it was caught <span class="hint">Date and time the fish was landed</span></label>
+              <input id="f-when" name="Caught at" type="datetime-local" required />
+            </div>
+            <div class="field">
+              <label for="f-evidence">Evidence link <span class="hint">The video or photo of the catch — YouTube link is home turf</span></label>
+              <input id="f-evidence" name="Evidence link" type="url" placeholder="https://" required />
+            </div>
+            <div class="field">
+              <label for="f-notes">The story <span class="hint">Optional — how the fight went, in your words</span></label>
+              <textarea id="f-notes" name="Story" rows="3"></textarea>
+            </div>
+            <button class="file-btn" type="submit">File the catch</button>
+            <p class="form-state" id="form-state" role="status"></p>
+          </form>
+
+          <p><span class="tag tag-staged">ROUNDS STAGED</span> The intake desk is built and standing; tournament rounds open when the first round is announced on the community's channel. How the money works, in the open: buy-ins ride <strong>store credits</strong> and in-app entry — the clean lanes. Prizes pay in <strong>store credits</strong> and <strong>build credits</strong> — house credit that spends inside the house and never converts to cash. Shares for first, second, and third, and the house's cut, print on the round card before a round opens — the cut's rate is set in person and stays off this page until it is. A cash payout lane exists on the drawing board only: it does not run, and no copy here offers it.</p>
+        </section>
+
+        <section id="operator">
+          <h2>Run one yourself — the operator offer</h2>
+          <p>This arcade is for sale as proposed. Seat one — the Sportsman Assembly — is a local sportsman running it for his own community. The next seats are the same machine, handed over turnkey:</p>
+          <div class="card">
+            <p><span class="item-title">The turnkey arcade.</span> The site that sells the line, the ten games and the dashboard, the leaderboard and the Triangle, the ascribed 24 applications in your own store, the community stance with its tournament intake, and the terminal — a Chromebook-class control portal, your space station, installed with the whole Apex stack on board.</p>
+          </div>
+          <div class="card">
+            <p><span class="item-title">You run the community. The house holds the rails.</span> Your store, board, and drops run on the house pipe — the super pipe process, the sync service, the stock drops, and the updates run through the house, the same back end our own properties run on. One shared ledger, visible from both sides: what has landed, what is running, what is owed. Your work is the human part — your people, your water, your word over the hood.</p>
+          </div>
+          <div class="price-card">
+            <p class="price-figure">$15,000 — the first arcade</p>
+            <p>The Sportsman Assembly went turnkey at $15,000: the games, the board, the storefront, the 24, the terminal, the drops, and the road ahead. Yours is scoped and priced the same way, as proposed — start from <a href="https://apexgroundcrew.com/sportsman-job/">the first arcade's own page</a>, where the whole job stands in the open with its clock.</p>
+          </div>
+          <div class="stats">
+            <div class="stat"><span class="stat-num">10</span><span class="stat-label">fishing games + dashboard</span></div>
+            <div class="stat"><span class="stat-num">24</span><span class="stat-label">applications in your store</span></div>
+            <div class="stat"><span class="stat-num">1</span><span class="stat-label">community, yours to run</span></div>
+          </div>
+          <p>The road rides with it: rifleman sports and archery sports as named lines of their own, then bird, then cloven-hoof game, then automobiles — one engine, the whole sportsman's year, manifold by manifold, as the line travels.</p>
+        </section>
+
+      </main>
+
+      <footer>
+        <p>The Sportsman's Game Arcade — an Apex Ground Crew assembly. The job as it landed for seat one: <a href="https://apexgroundcrew.com/sportsman-job/">The Sportsman Assembly</a> · Every application behind its own live door: <a href="https://apexgroundcrew.com/sportsman-job/shelf/">the applications shelf</a> · The house: <a href="https://apexgroundcrew.com">apexgroundcrew.com</a></p>
+      </footer>
+
+    </div>
+
+    <script>
+      (function () {
+        var form = document.getElementById("intake-form");
+        var state = document.getElementById("form-state");
+        form.addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          if (!form.checkValidity()) {
+            state.textContent = "A few fields are still empty — entrant, email, species, catch time, and the evidence link are the ones the desk needs.";
+            form.reportValidity();
+            return;
+          }
+          state.textContent = "Filing…";
+          var data = new FormData(form);
+          data.append("_subject", "Sportsman's Game Arcade — tournament catch filed");
+          data.append("_template", "table");
+          data.append("_captcha", "true");
+          fetch("https://formsubmit.co/ajax/masteradminapex@apex-airsolutions.com", {
+            method: "POST",
+            headers: { "Accept": "application/json" },
+            body: data
+          }).then(function (res) {
+            if (res.ok) {
+              form.reset();
+              state.textContent = "Filed. Your catch is in the desk's hands — it posts against the board once the evidence checks out.";
+            } else {
+              state.textContent = "The pipe refused that filing — nothing was sent. Try again in a little while; your numbers are still on this page.";
+            }
+          }).catch(function () {
+            state.textContent = "The pipe could not be reached — nothing was sent. Try again in a little while; your numbers are still on this page.";
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
