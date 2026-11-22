@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="data:," />
+    <title>The Sportsman Assembly — Apex Ground Crew</title>
+    <style>
+      :root {
+        --paper: #f7f2e7;
+        --paper-deep: #efe7d5;
+        --card: #fffdf7;
+        --ink: #1e241d;
+        --ink-soft: #454c42;
+        --green: #1d4d2b;
+        --green-deep: #14331d;
+        --green-ink: #f2f6ee;
+        --line: #d8cdb2;
+        --amber-bg: #f3e2b3;
+        --amber-ink: #6d4c00;
+        --grey-bg: #e3e0d6;
+        --grey-ink: #4c4a42;
+        --done-bg: #d7e8d2;
+        --done-ink: #1d4d2b;
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+        font-size: 17px;
+        line-height: 1.55;
+      }
+      .wrap {
+        max-width: 44rem;
+        margin: 0 auto;
+        padding: 1.25rem 1rem 2.5rem;
+      }
+
+      /* ---------- Header ---------- */
+      .brand {
+        border-bottom: 3px solid var(--green);
+        padding-bottom: 0.9rem;
+        margin-bottom: 1.4rem;
+      }
+      .brand-name {
+        font-size: 1.55rem;
+        font-weight: bold;
+        letter-spacing: 0.01em;
+        color: var(--green-deep);
+        margin: 0;
+      }
+      .brand-sub {
+        margin: 0.3rem 0 0;
+        font-size: 0.92rem;
+        color: var(--ink-soft);
+      }
+
+      h1 {
+        font-size: 2.05rem;
+        line-height: 1.15;
+        margin: 0 0 0.7rem;
+        color: var(--ink);
+      }
+      .intro {
+        font-size: 1.06rem;
+        margin: 0 0 1.5rem;
+      }
+
+      /* ---------- Price block ---------- */
+      .price-card {
+        background: var(--green-deep);
+        color: var(--green-ink);
+        border-radius: 10px;
+        padding: 1.4rem 1.25rem;
+        margin-bottom: 2rem;
+      }
+      .price-figure {
+        font-size: 1.9rem;
+        font-weight: bold;
+        line-height: 1.2;
+        margin: 0 0 0.5rem;
+      }
+      .price-card p { margin: 0; font-size: 1rem; }
+
+      /* ---------- Sections ---------- */
+      section { margin-bottom: 2.1rem; }
+      h2 {
+        font-size: 1.35rem;
+        line-height: 1.25;
+        margin: 0 0 0.85rem;
+        color: var(--green-deep);
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 0.4rem;
+      }
+      p { margin: 0 0 0.9rem; }
+      p:last-child { margin-bottom: 0; }
+      .item-title { font-weight: bold; color: var(--green-deep); }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 1.1rem 1.1rem 0.35rem;
+        margin-bottom: 1rem;
+      }
+
+      /* ---------- Door list ---------- */
+      .doors-note { margin-bottom: 1rem; }
+      ul.doors {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      ul.doors li {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        margin-bottom: 0.6rem;
+      }
+      ul.doors a {
+        display: block;
+        padding: 0.85rem 1rem;
+        min-height: 3rem;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      ul.doors a:active, ul.doors a:hover { background: var(--paper-deep); border-radius: 10px; }
+      .door-name {
+        display: block;
+        font-weight: bold;
+        color: var(--green);
+        font-size: 1.05rem;
+      }
+      .door-cap {
+        display: block;
+        font-size: 0.92rem;
+        color: var(--ink-soft);
+        margin-top: 0.15rem;
+      }
+      .door-arrow {
+        float: right;
+        color: var(--green);
+        font-weight: bold;
+      }
+
+      /* ---------- Clock table ---------- */
+      table.clock {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+        font-size: 0.97rem;
+      }
+      table.clock th, table.clock td {
+        text-align: left;
+        padding: 0.65rem 0.8rem;
+        vertical-align: top;
+      }
+      table.clock thead th {
+        background: var(--paper-deep);
+        color: var(--green-deep);
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      table.clock tbody tr + tr td { border-top: 1px solid var(--line); }
+      .tag {
+        display: inline-block;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        padding: 0.18rem 0.55rem;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+      .tag-done { background: var(--done-bg); color: var(--done-ink); }
+      .tag-working { background: var(--amber-bg); color: var(--amber-ink); }
+      .tag-staged { background: var(--grey-bg); color: var(--grey-ink); }
+      .clock-note { margin-top: 0.85rem; font-size: 0.95rem; color: var(--ink-soft); }
+
+      /* ---------- Stat boxes ---------- */
+      .stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin: 1rem 0;
+      }
+      .stat {
+        flex: 1 1 8.5rem;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 0.9rem 0.8rem;
+        text-align: center;
+      }
+      .stat-num {
+        display: block;
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--green);
+        line-height: 1.1;
+      }
+      .stat-label { display: block; font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.2rem; }
+
+      footer {
+        border-top: 3px solid var(--green);
+        padding-top: 0.9rem;
+        font-size: 0.9rem;
+        color: var(--ink-soft);
+      }
+      footer p { margin: 0; }
+
+      /* Phone: the clock table stacks — no sideways scroll */
+      @media (max-width: 560px) {
+        h1 { font-size: 1.75rem; }
+        .price-figure { font-size: 1.6rem; }
+        table.clock, table.clock tbody, table.clock tr, table.clock td { display: block; width: 100%; }
+        table.clock thead { display: none; }
+        table.clock tbody tr { padding: 0.55rem 0; }
+        table.clock tbody tr + tr { border-top: 1px solid var(--line); }
+        table.clock td { padding: 0.2rem 0.9rem; border-top: none !important; }
+        table.clock td.item { font-weight: bold; }
+        table.clock td.est { color: var(--ink-soft); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+
+      <header class="brand">
+        <p class="brand-name">Apex Ground Crew</p>
+        <p class="brand-sub">Websites, listings and business paperwork, done for you · Est. 2026 · Johannesburg, Michigan</p>
+      </header>
+
+      <main>
+        <h1>The Sportsman Assembly</h1>
+        <p class="intro">The customer told us what his community wants; this page is the job as it lands — what is built, what is on the clock, and every door live so he can test it himself on his phone.</p>
+
+        <div class="price-card">
+          <p class="price-figure">$15,000 — the whole assembly</p>
+          <p>One price for the games, the board, his storefront, the drops, and the road ahead.</p>
+        </div>
+
+        <section>
+          <h2>What you're getting</h2>
+
+          <div class="card">
+            <p><span class="item-title">Ten fishing watch games + the dashboard.</span> One engine, ten waters: largemouth bass, Michigan steelhead, rainbow trout, walleye, northern pike, muskie, Chinook salmon, bluegill, smallmouth bass, blue marlin — each paired with its classic lure. Cast from the wrist, fight the fish with a finger on the line; a landed fish mounts on the wall as a clock — new fish, new size and colors, every catch.</p>
+          </div>
+
+          <div class="card">
+            <p><span class="item-title">The leaderboard.</span> Every catch posts to the board: species records, placings, records that stand until broken. Three placed fish of one species earn the Triangle — a three-head mount that tells the time and date. The board works inside the dashboard today; the shared community board is on the clock below.</p>
+          </div>
+
+          <div class="card">
+            <p><span class="item-title">His storefront.</span> A store in his name selling applications — 24 picked by category from a shelf of working software, the fishing line first — with fresh stock dropping on a regular cadence and half the shelf held back so drops never run dry.</p>
+          </div>
+
+          <div class="card">
+            <p><span class="item-title">The road.</span> The same engine swaps one word and becomes the next sport: rifleman sports and archery sports as named lines of their own, then bird, then cloven-hoof game, then automobiles (bracket racing in the browser). That is the road ahead — stated as the road, not as goods in hand today.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Test it yourself — the doors are live</h2>
+          <p class="doors-note">Every file below is the real build, verified live Nov 22, 2026, byte-for-byte the file built and tested. These are Android packages — your phone will ask to allow the install. Tap a door and try it.</p>
+          <ul class="doors">
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-dashboard.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Apex Fishing Dashboard</span>
+                <span class="door-cap">Start here — all ten waters, the board, and the mounts</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-largemouth-bass.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Largemouth Bass</span>
+                <span class="door-cap">Rapala long-body, three treble hooks</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-michigan-steelhead.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Michigan Steelhead</span>
+                <span class="door-cap">Bear Monday Mauler</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-rainbow-trout.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Rainbow Trout</span>
+                <span class="door-cap">Mepps Aglia spinner</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-walleye.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Walleye</span>
+                <span class="door-cap">Shad Rap style</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-northern-pike.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Northern Pike</span>
+                <span class="door-cap">Red-and-white spoon</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-muskie.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Muskie</span>
+                <span class="door-cap">Big bucktail</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-chinook-salmon.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Chinook Salmon</span>
+                <span class="door-cap">Kwikfish plug</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-bluegill.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Bluegill</span>
+                <span class="door-cap">Beetle spin</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-smallmouth-bass.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Smallmouth Bass</span>
+                <span class="door-cap">Tube</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://raw.githubusercontent.com/apex74-create/apexairsolutions-shop/main/downloads/apex-fishing-blue-marlin.apk">
+                <span class="door-arrow" aria-hidden="true">→</span>
+                <span class="door-name">Blue Marlin</span>
+                <span class="door-cap">Classic squid lure</span>
+              </a>
+            </li>
+          </ul>
+          <p style="margin-top:1rem;">A demo film of the game working ships with the package.</p>
+        </section>
+
+        <section>
+          <h2>The value, squared</h2>
+          <p>Built the ordinary way — hire a game developer, a video producer, a tester, and a project lead — the same work prices at an estimated $21,000 to $63,000 and takes an estimated four to eight weeks. That estimate is built from published market day-rates, and the walk-through is available in person.</p>
+          <p>Our price is $15,000, and the core — all ten games, the dashboard, the demo — was scoped, built, tested, and shelved in one day, because the engine and the shelf already exist in this house.</p>
+        </section>
+
+        <section>
+          <h2>The clock — what lands when</h2>
+          <table class="clock">
+            <thead>
+              <tr>
+                <th scope="col">Line item</th>
+                <th scope="col">State</th>
+                <th scope="col">Projected estimate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="item">Ten fishing faces + dashboard</td>
+                <td><span class="tag tag-done">DONE</span></td>
+                <td class="est">On the shelf — links above</td>
+              </tr>
+              <tr>
+                <td class="item">Leaderboard in the dashboard</td>
+                <td><span class="tag tag-done">DONE</span></td>
+                <td class="est">Working today</td>
+              </tr>
+              <tr>
+                <td class="item">Demo film (the game, working)</td>
+                <td><span class="tag tag-done">DONE</span></td>
+                <td class="est">Ships with the package</td>
+              </tr>
+              <tr>
+                <td class="item">Demo film, second cut (the trophy mount performs)</td>
+                <td><span class="tag tag-working">WORKING</span></td>
+                <td class="est">Nov 23–24, 2026</td>
+              </tr>
+              <tr>
+                <td class="item">Community board — shared leaderboard</td>
+                <td><span class="tag tag-staged">STAGED</span></td>
+                <td class="est">3–7 working days from start</td>
+              </tr>
+              <tr>
+                <td class="item">Your storefront, loaded with 24 picks</td>
+                <td><span class="tag tag-staged">STAGED</span></td>
+                <td class="est">2–5 days from go</td>
+              </tr>
+              <tr>
+                <td class="item">First stock drop</td>
+                <td><span class="tag tag-staged">STAGED</span></td>
+                <td class="est">First cycle after the storefront</td>
+              </tr>
+              <tr>
+                <td class="item">Rifleman sports line</td>
+                <td><span class="tag tag-staged">STAGED</span></td>
+                <td class="est">1–2 weeks from its start</td>
+              </tr>
+              <tr>
+                <td class="item">Archery sports line</td>
+                <td><span class="tag tag-staged">STAGED</span></td>
+                <td class="est">1–2 weeks from its start</td>
+              </tr>
+              <tr>
+                <td class="item">Bird · cloven-hoof lines</td>
+                <td><span class="tag tag-staged">STAGED</span></td>
+                <td class="est">1–3 weeks each from their starts</td>
+              </tr>
+              <tr>
+                <td class="item">Automobiles — bracket racing</td>
+                <td><span class="tag tag-staged">STAGED</span></td>
+                <td class="est">2–4 weeks from its start</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="clock-note">Estimates are ranges set from how fast this house actually built the work above — the fishing line went from scope to shelf in a single day. If a line slips, he hears it from us against this clock.</p>
+        </section>
+
+        <section>
+          <h2>Three turns are in the price</h2>
+          <p>A turn is one round of work driven by his word — he looks at what landed, says what to change or build next from his scope, we run that round and land it. Three turns are in the price; the count starts when the shelf is in his hands, so turns buy direction, not catch-up.</p>
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-num">3</span>
+              <span class="stat-label">turns in the price</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">0</span>
+              <span class="stat-label">used at delivery</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">3</span>
+              <span class="stat-label">remaining</span>
+            </div>
+          </div>
+          <p>The count lives on this page's ledger and moves as turns are used — both sides always see the same count.</p>
+        </section>
+
+        <section>
+          <h2>How it runs after handoff</h2>
+          <p>His store, board, and drops run on the house pipe — the same back end our own properties run on — and billing rides the same delivery clock shown on this page. One shared ledger, visible from both sides: what has landed, what is running, how many turns stand. No surprises in either direction.</p>
+        </section>
+      </main>
+
+      <footer>
+        <p>Apex Ground Crew · Johannesburg, Michigan · A crew of Apex Air Solutions. Page posted Nov 22, 2026. States and estimates as of posting; the clock above is the commitment.</p>
+      </footer>
+
+    </div>
+  </body>
+</html>
