@@ -17,12 +17,6 @@
         --green-deep: #14331d;
         --green-ink: #f2f6ee;
         --line: #d8cdb2;
-        --amber-bg: #f3e2b3;
-        --amber-ink: #6d4c00;
-        --grey-bg: #e3e0d6;
-        --grey-ink: #4c4a42;
-        --done-bg: #d7e8d2;
-        --done-ink: #1d4d2b;
       }
       * { box-sizing: border-box; }
       html { -webkit-text-size-adjust: 100%; }
@@ -147,7 +141,7 @@
         font-weight: bold;
       }
 
-      /* ---------- Clock table ---------- */
+      /* ---------- Sequence table ---------- */
       table.clock {
         width: 100%;
         border-collapse: collapse;
@@ -170,19 +164,8 @@
         text-transform: uppercase;
       }
       table.clock tbody tr + tr td { border-top: 1px solid var(--line); }
-      .tag {
-        display: inline-block;
-        font-family: ui-sans-serif, system-ui, sans-serif;
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        padding: 0.18rem 0.55rem;
-        border-radius: 999px;
-        white-space: nowrap;
-      }
-      .tag-done { background: var(--done-bg); color: var(--done-ink); }
-      .tag-working { background: var(--amber-bg); color: var(--amber-ink); }
-      .tag-staged { background: var(--grey-bg); color: var(--grey-ink); }
+      .stands { color: var(--ink-soft); white-space: nowrap; }
+      .stands-done { color: var(--green); font-weight: bold; }
       .clock-note { margin-top: 0.85rem; font-size: 0.95rem; color: var(--ink-soft); }
 
       /* ---------- Stat boxes ---------- */
@@ -217,7 +200,7 @@
       }
       footer p { margin: 0; }
 
-      /* Phone: the clock table stacks — no sideways scroll */
+      /* Phone: the sequence table stacks — no sideways scroll */
       @media (max-width: 560px) {
         h1 { font-size: 1.75rem; }
         .price-figure { font-size: 1.6rem; }
@@ -241,7 +224,14 @@
 
       <main>
         <h1>The Sportsman Assembly</h1>
-        <p class="intro">The customer told us what his community wants; this page is the job as it lands — what is built, what is on the clock, and every door live so he can test it himself on his phone.</p>
+        <p class="intro">The customer told us what his community wants; this page is the job as it lands — what is built, what is in the run order, and every door live so he can test it himself on his phone.</p>
+
+        <section>
+          <h2>Underway — work already in the customer's hands</h2>
+          <div class="card">
+            <p><span class="item-title">2 of 3 build turns delivered.</span> Turn 1 — the fishing line v1.1 — and Turn 2 — the Flying Squirrel game — are built and in the customer's hands today, and <a href="https://apexgroundcrew.com/sportsmans-game-arcade/">the Sportsman's Game Arcade</a> is live on this site. One turn remains. The build sequence below is the run order for what lands next.</p>
+          </div>
+        </section>
 
         <div class="price-card">
           <p class="price-figure">$15,000 — the whole assembly</p>
@@ -256,7 +246,7 @@
           </div>
 
           <div class="card">
-            <p><span class="item-title">The leaderboard.</span> Every catch posts to the board: species records, placings, records that stand until broken. Three placed fish of one species earn the Triangle — a three-head mount that tells the time and date. The board works inside the dashboard today; the shared community board is on the clock below.</p>
+            <p><span class="item-title">The leaderboard.</span> Every catch posts to the board: species records, placings, records that stand until broken. Three placed fish of one species earn the Triangle — a three-head mount that tells the time and date. The board works inside the dashboard today; the shared community board is in the run order below.</p>
           </div>
 
           <div class="card">
@@ -362,74 +352,74 @@
         </section>
 
         <section>
-          <h2>The clock — what lands when</h2>
+          <h2>The build sequence — what lands when</h2>
           <table class="clock">
             <thead>
               <tr>
                 <th scope="col">Line item</th>
-                <th scope="col">State</th>
+                <th scope="col">Where it stands</th>
                 <th scope="col">Projected estimate</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td class="item">Ten fishing faces + dashboard</td>
-                <td><span class="tag tag-done">DONE</span></td>
+                <td class="stands stands-done">Delivered</td>
                 <td class="est">On the shelf — links above</td>
               </tr>
               <tr>
                 <td class="item">Leaderboard in the dashboard</td>
-                <td><span class="tag tag-done">DONE</span></td>
+                <td class="stands stands-done">Delivered</td>
                 <td class="est">Working today</td>
               </tr>
               <tr>
                 <td class="item">Demo film (the game, working)</td>
-                <td><span class="tag tag-done">DONE</span></td>
+                <td class="stands stands-done">Delivered</td>
                 <td class="est">Ships with the package</td>
               </tr>
               <tr>
                 <td class="item">Demo film, second cut (the trophy mount performs)</td>
-                <td><span class="tag tag-done">DONE</span></td>
+                <td class="stands stands-done">Delivered</td>
                 <td class="est">Ships with the package</td>
               </tr>
               <tr>
                 <td class="item">Community board — shared leaderboard</td>
-                <td><span class="tag tag-staged">STAGED</span></td>
+                <td class="stands">In the run order</td>
                 <td class="est">3–7 working days from start</td>
               </tr>
               <tr>
                 <td class="item">Your storefront, loaded with 24 picks</td>
-                <td><span class="tag tag-staged">STAGED</span></td>
+                <td class="stands">In the run order</td>
                 <td class="est">2–5 days from go</td>
               </tr>
               <tr>
                 <td class="item">First stock drop</td>
-                <td><span class="tag tag-staged">STAGED</span></td>
+                <td class="stands">In the run order</td>
                 <td class="est">First cycle after the storefront</td>
               </tr>
               <tr>
                 <td class="item">Rifleman sports line</td>
-                <td><span class="tag tag-staged">STAGED</span></td>
+                <td class="stands">In the run order</td>
                 <td class="est">1–2 weeks from its start</td>
               </tr>
               <tr>
                 <td class="item">Archery sports line</td>
-                <td><span class="tag tag-staged">STAGED</span></td>
+                <td class="stands">In the run order</td>
                 <td class="est">1–2 weeks from its start</td>
               </tr>
               <tr>
                 <td class="item">Bird · cloven-hoof lines</td>
-                <td><span class="tag tag-done">DONE</span></td>
+                <td class="stands stands-done">Delivered</td>
                 <td class="est">In hand today</td>
               </tr>
               <tr>
                 <td class="item">Automobiles — bracket racing</td>
-                <td><span class="tag tag-staged">STAGED</span></td>
+                <td class="stands">In the run order</td>
                 <td class="est">2–4 weeks from its start</td>
               </tr>
             </tbody>
           </table>
-          <p class="clock-note">Estimates are ranges set from how fast this house actually built the work above — the fishing line went from scope to shelf in a single day. If a line slips, he hears it from us against this clock.</p>
+          <p class="clock-note">Estimates are ranges set from how fast this house actually built the work above — the fishing line went from scope to shelf in a single day. If a line slips, he hears it from us against this sequence.</p>
         </section>
 
         <section>
@@ -456,12 +446,12 @@
 
         <section>
           <h2>How it runs after handoff</h2>
-          <p>His store, board, and drops run on the house pipe — the same back end our own properties run on — and billing rides the same delivery clock shown on this page. One shared ledger, visible from both sides: what has landed, what is running, how many turns stand. No surprises in either direction.</p>
+          <p>His store, board, and drops run on the house pipe — the same back end our own properties run on — and billing rides the same build sequence shown on this page. One shared ledger, visible from both sides: what has landed, what is running, how many turns stand. No surprises in either direction.</p>
         </section>
       </main>
 
       <footer>
-        <p>Apex Ground Crew · Johannesburg, Michigan · A crew of Apex Air Solutions. Page posted Nov 22, 2026. States and estimates as of posting; the clock above is the commitment.</p>
+        <p>Apex Ground Crew · Johannesburg, Michigan · A crew of Apex Air Solutions. Page posted Nov 22, 2026. Estimates as of posting; the sequence above is the commitment.</p>
       </footer>
 
     </div>
