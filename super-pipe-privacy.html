@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Super Pipe — Privacy Policy — Apex Air Solutions</title>
+<style>
+  body { font-family: Georgia, 'Times New Roman', serif; color: #1a1a1a; background: #fdfdfb; margin: 0; padding: 2rem 1rem 4rem; line-height: 1.6; }
+  main { max-width: 44rem; margin: 0 auto; }
+  h1 { font-size: 1.7rem; margin-bottom: 0.2rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; }
+  .meta { color: #555; font-size: 0.95rem; margin-bottom: 2rem; }
+  ul { padding-left: 1.4rem; }
+</style>
+</head>
+<body>
+<main>
+<h1>Super Pipe — Privacy Policy</h1>
+<p class="meta">Operated by Apex Air Solutions · Effective November 26, 2026</p>
+
+<h2>1. What Super Pipe is</h2>
+<p>Super Pipe is a video upload tool operated by Apex Air Solutions. It uploads video files to a YouTube channel using Google's YouTube Data API v3 resumable upload protocol — the file travels in chunks, and an interrupted upload resumes from the byte YouTube already holds instead of restarting from zero. The pipe does one job: upload. It cannot delete videos, edit them after upload, set thumbnails, or apply age restrictions.</p>
+<p>As it exists today, the pipe is a single-channel tool. It runs under one dedicated Google OAuth client, in a Google Cloud project controlled by the channel owner (project name: "Apex YouTube Pipe"), and it uploads the channel owner's own videos to the owner's own channel (apexairguns, @apexairguns74) under the owner's own authorization. It has been live in that form since November 24, 2026. Section 9 states plainly what that means for any future customer offering.</p>
+
+<h2>2. The authorization — one permission, nothing else</h2>
+<p>The pipe connects through Google's standard OAuth 2.0 sign-in. It requests exactly one scope:</p>
+<ul>
+<li><code>https://www.googleapis.com/auth/youtube.upload</code> — shown on Google's consent screen as permission to manage your YouTube videos, used by this pipe only to upload them.</li>
+</ul>
+<p>The pipe requests no other Google permission. It does not read email, does not access Drive, does not read channel analytics or comments, and the scope it holds could not do those things if it tried. Signing in happens on Google's own pages; the pipe never sees or handles the account password.</p>
+<p>Super Pipe's use of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including its Limited Use requirements.</p>
+
+<h2>3. Credentials — how they are kept</h2>
+<ul>
+<li>The OAuth client configuration and the authorization token pair are stored as local files on the machine that runs the pipe, inside a protected folder readable only by its owner (folder permissions 0700, file permissions 0600).</li>
+<li>Token values are never printed, logged, pasted into chat, or sent anywhere by the pipe's helper program. It reads the files itself and reports only whether a token is stored and when the short-lived access token expires.</li>
+<li>The long-lived refresh token is what keeps the pipe connected without asking for sign-in again. The helper refreshes the short-lived access token on its own as it nears expiry.</li>
+<li><strong>Revoking is the channel owner's act, at any time:</strong> remove the app's access at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a> and the pipe stops working until consent is given again. Revocation needs no permission from Apex and no explanation.</li>
+</ul>
+
+<h2>4. Video files — in transit, not in storage</h2>
+<ul>
+<li>An upload reads the video file from the local machine and sends it directly to YouTube's servers in chunks of 8 MiB. The pipe holds only one chunk in memory at a time, whatever the file's size (the documented maximum is 256 GB).</li>
+<li>The pipe makes no archive copy of any video for itself. The only copy it creates is the one the upload exists to create: the video on the channel, at YouTube.</li>
+<li>If an upload is interrupted, rerunning it is safe: the pipe first asks YouTube how many bytes it already holds and resumes from that byte.</li>
+</ul>
+
+<h2>5. Upload metadata — what rides with the file</h2>
+<p>Each upload carries the publishing details the uploader sets, and only those:</p>
+<ul>
+<li>Title (required), description, and tags.</li>
+<li>Category (default 22 unless changed).</li>
+<li>Privacy setting — the house default is <strong>unlisted</strong>; public or private is the uploader's choice, and a scheduled publish time can be set on a private video.</li>
+<li>The audience declaration. House rule: uploads through this pipe declare <strong>not made for kids</strong>, unless a video is genuinely made for children, in which case it is flagged as such.</li>
+</ul>
+<p>Once a video and its metadata are on YouTube, they sit on Google's platform and are governed from that point by YouTube's own terms and Google's privacy policy. Super Pipe's handling ends at the completed upload; what the helper reports back is the video's ID, its watch URL, its upload and privacy status, and the audience value YouTube recorded.</p>
+
+<h2>6. Resumable session records — the one thing kept between attempts</h2>
+<p>To make resume-after-interruption work, the pipe keeps a per-file session record in the same protected local folder as the credentials. A record holds the resumable session URI YouTube issued for that file's upload.</p>
+<ul>
+<li>A session URI is a bearer capability — whoever holds it can write to that upload session — so records are stored only in the protected folder and are never printed or shared.</li>
+<li>Google does not publish an exact lifetime for these sessions; they expire, and an expired session is dropped and replaced with a fresh one.</li>
+<li>Session records exist for one reason: finishing an interrupted upload of the same file. They contain no video content.</li>
+</ul>
+
+<h2>7. What the pipe keeps, in total</h2>
+<p>The complete list of what persists on the machine that runs the pipe is:</p>
+<ul>
+<li>The OAuth client configuration (the app's identity, issued by Google).</li>
+<li>The authorization token pair (Section 3).</li>
+<li>Resumable session records for uploads in progress or interrupted (Section 6).</li>
+</ul>
+<p>There is no customer account database, no upload-history archive, and no copy of any video in the pipe's keeping. The pipe's helper prints upload progress and the finished video's report (Section 5) to the operator running it; it builds no other records.</p>
+
+<h2>8. Sharing</h2>
+<p>The pipe sends data to exactly one place: Google/YouTube, to perform the upload the channel owner authorized. Apex Air Solutions does not sell personal information. The pipe has no advertising, analytics, or third-party tracking component.</p>
+
+<h2>9. Scope of this policy — stated plain</h2>
+<p>This policy covers the pipe as it exists: one channel, the channel owner's own authorization, operated by Apex Air Solutions. If Super Pipe is ever offered to customers on their own channels, that is a different shape of service — per-customer authorization, per-customer credential storage, per-customer revocation — and this policy must be extended and re-approved by the owner before any such offering opens. Nothing in this policy should be read as covering a service that has not been built yet.</p>
+
+<h2>10. Contact</h2>
+<p>Questions about this policy or the pipe's handling of an upload: Apex Air Solutions — masteradminapex@apex-airsolutions.com.</p>
+</main>
+</body>
+</html>
